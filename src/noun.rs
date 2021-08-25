@@ -1,4 +1,8 @@
 use unicode_normalization::UnicodeNormalization;
+#[cfg(feature = "with-serde-1")]
+use serde::{Serialize, Deserialize};
+#[cfg(feature = "with-num_enum-0_5")]
+use num_enum::{TryFromPrimitive, IntoPrimitive};
 
 pub fn guess_noun_base(noun: &str, noun_class: Option<NounClass>) -> String {
     // All possible noun prefixes ordered by descending length
@@ -50,9 +54,17 @@ fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
     word
 }
 
-#[derive(Copy, Clone, Eq, PartialEq)]
+/// A noun class. Variants are named by the longest possible conventional prefix, and the class
+/// number when the prefix alone is ambiguous.
+///
+/// # `#[repr(u8)]`
+/// Variants are numbered beginning from 1.
+#[cfg_attr(feature = "with-num_enum-0_5", derive(IntoPrimitive, TryFromPrimitive))]
+#[cfg_attr(feature = "with-serde-1", derive(Serialize, Deserialize))]
+#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[repr(u8)]
 pub enum NounClass {
-    Class1Um,
+    Class1Um = 1,
     Aba,
 
     U,
