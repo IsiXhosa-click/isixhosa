@@ -61,7 +61,7 @@ fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
 /// Variants are numbered beginning from 1.
 #[cfg_attr(feature = "with-num_enum-0_5", derive(IntoPrimitive, TryFromPrimitive))]
 #[cfg_attr(feature = "with-serde-1", derive(Serialize, Deserialize))]
-#[derive(Copy, Clone, Debug, PartialEq, Eq)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
 pub enum NounClass {
     Class1Um = 1,
@@ -87,6 +87,7 @@ pub enum NounClass {
     Uku,
 }
 
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub struct NounClassPrefix {
     /// Possible forms of the noun class prefix in descending order of length
     pub forms: &'static [&'static str],
