@@ -1,43 +1,29 @@
-use unicode_normalization::UnicodeNormalization;
+#[cfg(feature = "with-num_enum-0_7")]
+use num_enum::{IntoPrimitive, TryFromPrimitive};
 #[cfg(feature = "with-serde-1")]
-use serde::{Serialize, Deserialize};
-#[cfg(feature = "with-num_enum-0_5")]
-use num_enum::{TryFromPrimitive, IntoPrimitive};
+use serde::{Deserialize, Serialize};
+use unicode_normalization::UnicodeNormalization;
 
 pub fn guess_noun_base(noun: &str, noun_class: Option<NounClass>) -> String {
     // All possible noun prefixes ordered by descending length
     const ALL_PREFIXES: &[&str] = &[
-        "izin",
-
-        "iin",
-        "iim",
-        "isi",
-        "izi",
-        "ili",
-        "ama",
-        "imi",
-        "aba",
-        "ulu",
-        "ubu",
-        "uku",
-
-        "um",
-        "oo",
-        "is",
-        "iz",
-        "in",
-        "im",
-        "ii",
-
-        "u",
-        "i",
+        // 4-len prefixes
+        "izin", "izim", // 4-len prefixes without initial vowels
+        "zin", "zim", // 3-len prefixes
+        "iin", "iim", "isi", "izi", "ili", "ama", "imi", "aba", "ulu", "ulw", "ubu", "uku",
+        // 3-len prefixes without initial vowels
+        "si", "zi", "li", "ma", "mi", "ba", "lu", "lw", "bu", "ku", // 2-len prefixes
+        "um", "oo", "is", "iz", "in", "im", "ii", // 2-len prefixes without initial vowels
+        "m", "s", "z", "n", // 1-len prefixes
+        "u", "i",
     ];
 
     let normalized: String = noun.nfc().collect();
+    let normalized = normalized.trim_start_matches('-');
 
     let trimmed = match noun_class {
-        Some(class) => trim_best_match(&normalized, class.to_prefix().forms),
-        None => trim_best_match(&normalized, ALL_PREFIXES)
+        Some(class) => trim_best_match(normalized, class.to_prefix().forms),
+        None => trim_best_match(normalized, ALL_PREFIXES),
     };
 
     trimmed.to_owned()
@@ -45,9 +31,17 @@ pub fn guess_noun_base(noun: &str, noun_class: Option<NounClass>) -> String {
 
 fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
     for prefix in prefixes {
-        let trimmed = word.trim_start_matches(prefix);
+        let lower = word.to_lowercase();
+        let trimmed = lower.trim_start_matches(prefix);
         if trimmed.len() < word.len() {
-            return trimmed;
+            let mut start = word.len() - trimmed.len();
+
+            if word.as_bytes().get(start) == Some(&b'-') {
+                start += 1;
+            }
+
+            // It should be ok to use bytes here, because we trim by unicode
+            return &word[start..];
         }
     }
 
@@ -59,7 +53,7 @@ fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
 ///
 /// # `#[repr(u8)]`
 /// Variants are numbered beginning from 1.
-#[cfg_attr(feature = "with-num_enum-0_5", derive(IntoPrimitive, TryFromPrimitive))]
+#[cfg_attr(feature = "with-num_enum-0_7", derive(IntoPrimitive, TryFromPrimitive))]
 #[cfg_attr(feature = "with-serde-1", derive(Serialize, Deserialize))]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
@@ -94,6 +88,7 @@ pub struct NounClassPrefix {
 }
 
 impl NounClass {
+    /// Returns all possible forms of the prefix of this class.
     pub fn to_prefix(&self) -> NounClassPrefix {
         macro_rules! to_prefix {
             ($on:expr => {
