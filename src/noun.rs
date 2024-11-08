@@ -58,56 +58,56 @@ fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
 pub enum NounClass {
-    #[serde(rename = "1")]
-    #[serde(alias = "Class1Um")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "1"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Class1Um"))]
     Class1Um = 1,
-    #[serde(rename = "2")]
-    #[serde(alias = "Aba")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "2"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Aba"))]
     Aba,
 
-    #[serde(rename = "1a")]
-    #[serde(alias = "U")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "1a"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "U"))]
     U,
-    #[serde(rename = "2a")]
-    #[serde(alias = "Oo")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "2a"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Oo"))]
     Oo,
 
-    #[serde(rename = "3")]
-    #[serde(alias = "Class3Um")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "3"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Class3Um"))]
     Class3Um,
-    #[serde(rename = "4")]
-    #[serde(alias = "Imi")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "4"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Imi"))]
     Imi,
 
-    #[serde(rename = "5")]
-    #[serde(alias = "Ili")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "5"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Ili"))]
     Ili,
-    #[serde(rename = "6")]
-    #[serde(alias = "Ama")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "6"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Ama"))]
     Ama,
 
-    #[serde(rename = "7")]
-    #[serde(alias = "Isi")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "7"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Isi"))]
     Isi,
-    #[serde(rename = "8")]
-    #[serde(alias = "Izi")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "8"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Izi"))]
     Izi,
 
-    #[serde(rename = "9")]
-    #[serde(alias = "In")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "9"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "In"))]
     In,
-    #[serde(rename = "10")]
-    #[serde(alias = "Izin")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "10"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Izin"))]
     Izin,
 
-    #[serde(rename = "11")]
-    #[serde(alias = "Ulu")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "11"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Ulu"))]
     Ulu,
-    #[serde(rename = "14")]
-    #[serde(alias = "Ubu")]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "14"))]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Ubu"))]
     Ubu,
-    #[serde(alias = "Uku")]
-    #[serde(rename = "15")]
+    #[cfg_attr(feature = "with-serde-1", serde(alias = "Uku"))]
+    #[cfg_attr(feature = "with-serde-1", serde(rename = "15"))]
     Uku,
 }
 
