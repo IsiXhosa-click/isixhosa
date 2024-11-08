@@ -58,26 +58,56 @@ fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
 pub enum NounClass {
+    #[serde(rename = "1")]
+    #[serde(alias = "Class1Um")]
     Class1Um = 1,
+    #[serde(rename = "2")]
+    #[serde(alias = "Aba")]
     Aba,
 
+    #[serde(rename = "1a")]
+    #[serde(alias = "U")]
     U,
+    #[serde(rename = "2a")]
+    #[serde(alias = "Oo")]
     Oo,
 
+    #[serde(rename = "3")]
+    #[serde(alias = "Class3Um")]
     Class3Um,
+    #[serde(rename = "4")]
+    #[serde(alias = "Imi")]
     Imi,
 
+    #[serde(rename = "5")]
+    #[serde(alias = "Ili")]
     Ili,
+    #[serde(rename = "6")]
+    #[serde(alias = "Ama")]
     Ama,
 
+    #[serde(rename = "7")]
+    #[serde(alias = "Isi")]
     Isi,
+    #[serde(rename = "8")]
+    #[serde(alias = "Izi")]
     Izi,
 
+    #[serde(rename = "9")]
+    #[serde(alias = "In")]
     In,
+    #[serde(rename = "10")]
+    #[serde(alias = "Izin")]
     Izin,
 
+    #[serde(rename = "11")]
+    #[serde(alias = "Ulu")]
     Ulu,
+    #[serde(rename = "14")]
+    #[serde(alias = "Ubu")]
     Ubu,
+    #[serde(alias = "Uku")]
+    #[serde(rename = "15")]
     Uku,
 }
 
