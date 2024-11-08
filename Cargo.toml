@@ -1,6 +1,6 @@
 [package]
 name = "isixhosa"
-version = "0.3.0"
+version = "0.3.1"
 description = "A library to help process text in isiXhosa"
 authors = ["Restioson <restiosondev@gmail.com>"]
 edition = "2018"

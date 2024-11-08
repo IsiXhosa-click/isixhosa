@@ -119,7 +119,7 @@ pub struct NounClassPrefix {
 
 impl NounClass {
     /// Returns all possible forms of the prefix of this class.
-    pub fn to_prefix(&self) -> NounClassPrefix {
+    pub const fn to_prefix(&self) -> NounClassPrefix {
         macro_rules! to_prefix {
             ($on:expr => {
                 $($variant:ident => [$($string:expr),*],)*
@@ -157,6 +157,27 @@ impl NounClass {
                 Ubu => ["ubu"],
                 Uku => ["uku"],
             }
+        }
+    }
+
+    /// Returns the noun class number of this variant (roughly using Meinhof's classification)
+    pub const fn to_number(&self) -> &'static str {
+        match self {
+            NounClass::Class1Um => "1",
+            NounClass::Aba => "2",
+            NounClass::U => "1a",
+            NounClass::Oo => "2a",
+            NounClass::Class3Um => "3",
+            NounClass::Imi => "4",
+            NounClass::Ili => "5",
+            NounClass::Ama => "6",
+            NounClass::Isi => "7",
+            NounClass::Izi => "8",
+            NounClass::In => "9",
+            NounClass::Izin => "10",
+            NounClass::Ulu => "11",
+            NounClass::Ubu => "14",
+            NounClass::Uku => "15",
         }
     }
 }
