@@ -2,6 +2,8 @@
 use num_enum::{IntoPrimitive, TryFromPrimitive};
 #[cfg(feature = "with-serde-1")]
 use serde::{Deserialize, Serialize};
+#[cfg(feature = "with-strum-0_26")]
+use strum::EnumIter;
 use unicode_normalization::UnicodeNormalization;
 
 pub fn guess_noun_base(noun: &str, noun_class: Option<NounClass>) -> String {
@@ -55,6 +57,7 @@ fn trim_best_match<'a>(word: &'a str, prefixes: &[&str]) -> &'a str {
 /// Variants are numbered beginning from 1.
 #[cfg_attr(feature = "with-num_enum-0_7", derive(IntoPrimitive, TryFromPrimitive))]
 #[cfg_attr(feature = "with-serde-1", derive(Serialize, Deserialize))]
+#[cfg_attr(feature = "with-strum-0_26", derive(EnumIter))]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 #[repr(u8)]
 pub enum NounClass {
